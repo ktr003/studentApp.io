@@ -1,4 +1,4 @@
-// JavaScript source code
+//JavaScript source code
 //drawing マウスダウンするとtrue,マウスアップするとfalse
 //dragging マウスダウンしたままムーブするとtrue,
 var drawing = false;
@@ -19,7 +19,6 @@ var image = new Image();
 
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-
 
 if (navigator.userAgent.indexOf('iPhone') > 0 || navigator.userAgent.indexOf('iPod') > 0 || (navigator.userAgent.indexOf('Android') > 0 && navigator.userAgent.indexOf('Mobile') > 0)) {
     ua = 'iphone';
@@ -110,9 +109,6 @@ function tool(btn) {
     // スクロールボタン
     if (btn == 1) {
         btnNum = 1;
-        //document.removeEventListener('touchmove', disableScroll, { passive: false });
-        //document.body.classList.remove('overflow-hidden');
-        //canvas.removeEventListener('mousemove', draw_canvas);
         scr.className = 'active';
         pen.className = '';
         era.className = '';
@@ -155,10 +151,32 @@ function tool(btn) {
 }
 
 window.addEventListener('load', function () {
-    //RecCanvasの定義
+    //RecCanvasの定義 1×1
     rec_canvas = document.getElementById("RecCanvas");
     rec_ctx = rec_canvas.getContext("2d");
     rec_canvas.width = rec_canvas.height = 1;
+    //保存済みノート画面を表示するCanvasの定義
+    //Canvas[0] 1×1
+    canvas0 = document.getElementById("Canvas[0]");
+    ctx0 = canvas0.getContext("2d");
+    canvas0.width = canvas0.height = 1;
+    //Canvas[1] 1×1
+    canvas1 = document.getElementById("Canvas[1]");
+    ctx1 = canvas1.getContext("2d");
+    canvas1.width = canvas1.height = 1;
+    //Canvas[2] 1×1
+    canvas2 = document.getElementById("Canvas[2]");
+    ctx2 = canvas2.getContext("2d");
+    canvas2.width = canvas2.height = 1;
+    //Canvas[3] 1×1
+    canvas3 = document.getElementById("Canvas[3]");
+    ctx3 = canvas3.getContext("2d");
+    canvas3.width = canvas3.height = 1;
+    //Canvas[4] 1×1
+    canvas4 = document.getElementById("Canvas[4]");
+    ctx4 = canvas4.getContext("2d");
+    canvas4.width = canvas4.height = 1;
+
     //選択範囲を描画
     image.src = canvas.toDataURL();
     ctx.drawImage(image, 0, 0);
@@ -338,7 +356,68 @@ window.addEventListener('load', function () {
         // 要素のイベントをリセットしておく
         e.preventDefault();
         Fnk_SaveBt();
-        //canvasの下に保存した画像表示する処理
+
+        if(canvas4.width = 1){
+            canvas4.height = 500;
+            canvas4.width = 357;
+            var base64_4 = canvas.toDataURL();
+            // LocalStorageに保存する
+            window.localStorage.setItem("saveKey4", base64_4);
+            // LocalStroageからデータを取得する
+            var base64_4 = window.localStorage.getItem("saveKey4");
+            var image4 = new Image();
+            image4.src = base64_4;
+            ctx4.drawImage(image4, 0, 0);
+        }
+        if(canvas3.width = 1){
+            canvas3.height = 500;
+            canvas3.width = 357;
+            var base64_3 = canvas.toDataURL();
+            // LocalStorageに保存する
+            window.localStorage.setItem("saveKey3", base64_3);
+            // LocalStroageからデータを取得する
+            var base64_3 = window.localStorage.getItem("saveKey3");
+            var image3 = new Image();
+            image3.src = base64_3;
+            ctx3.drawImage(image3, 0, 0);
+        }
+        if(canvas2.width = 1){
+            canvas2.height = 500;
+            canvas2.width = 357;
+            var base64_2 = canvas.toDataURL();
+            // LocalStorageに保存する
+            window.localStorage.setItem("saveKey2", base64_2);
+            // LocalStroageからデータを取得する
+            var base64_2 = window.localStorage.getItem("saveKey2");
+            var image2 = new Image();
+            image2.src = base64_2;
+            ctx2.drawImage(image2, 0, 0);
+        }
+        if(canvas1.width = 1){
+            canvas1.height = 500;
+            canvas1.width = 357;
+            var base64_1 = canvas.toDataURL();
+            // LocalStorageに保存する
+            window.localStorage.setItem("saveKey1", base64_1);
+            // LocalStroageからデータを取得する
+            var base64_1 = window.localStorage.getItem("saveKey1");
+            var image1 = new Image();
+            image1.src = base64_1;
+            ctx1.drawImage(image1, 0, 0);
+        }
+        if(canvas0.width = 1){
+            canvas0.height = 500;
+            canvas0.width = 357;
+            var base64_0 = canvas.toDataURL();
+            // LocalStorageに保存する
+            window.localStorage.setItem("saveKey0", base64_0);
+            // LocalStroageからデータを取得する
+            var base64_0 = window.localStorage.getItem("saveKey0");
+            var image0 = new Image();
+            image0.src = base64_0;
+            ctx0.drawImage(image0, 0, 0);
+        }
+
         return false;
     });
     // canvas上のイメージを保存
@@ -348,7 +427,7 @@ window.addEventListener('load', function () {
         var blob = Base64toBlob(base64);
 
         // blobデータをa要素を使ってダウンロード
-        saveBlob(blob, 'memo.jpg');
+        saveBlob(blob, 'note.jpg');
     }
     // Base64データをBlobデータに変換
     function Base64toBlob(base64) {
@@ -377,15 +456,5 @@ window.addEventListener('load', function () {
         a.href = dataUrl;
         a.download = fileName;
         a.dispatchEvent(event);
-    }
-    // 色の反転
-    function getTurningAround(color) {
-        // 灰色は白にする
-        if (color >= 88 && color <= 168) {
-            return 255;
-            // 色を反転する
-        } else {
-            return 255 - color;
-        }
     }
 });
